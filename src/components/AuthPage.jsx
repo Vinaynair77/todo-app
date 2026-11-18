@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api'
 import { useAuth } from '../auth/AuthContext'
+import ThemeToggle from './ThemeToggle'
 
 // The account identifier can be either a username or an email address.
 const USERNAME_PATTERN = /^[a-zA-Z0-9_.-]{3,30}$/
@@ -95,6 +96,7 @@ function AuthPage() {
 
   return (
     <div className="auth-page">
+      <ThemeToggle className="theme-toggle-auth" />
       <form className="auth-card" onSubmit={handleSubmit} noValidate>
         <h1 className="auth-title">To-Do</h1>
         <p className="auth-subtitle">

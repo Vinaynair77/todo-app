@@ -7,6 +7,7 @@ import TaskList from './TaskList'
 import History from './History'
 import ShareTaskDialog from './ShareTaskDialog'
 import TeamsDialog from './TeamsDialog'
+import ThemeToggle from './ThemeToggle'
 
 function TodoApp({ user }) {
   const { logout } = useAuth()
@@ -66,6 +67,7 @@ function TodoApp({ user }) {
         <div className="app-header-row">
           <h1>To-Do</h1>
           <div className="user-menu">
+            <ThemeToggle />
             <span className="task-owner" title={user.identifier}>
               {user.identifier}
             </span>

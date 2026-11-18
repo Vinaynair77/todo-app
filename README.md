@@ -14,6 +14,18 @@ team tasks with due dates and completion history.
 - **Team tasks** can be shared with a named team or with individual accounts
 - Create teams with a name, then add or remove members by email/username
 - Personal and team tasks appear together in one list; a toggle only chooses what the form creates
+- Light and dark themes with a toggle on both the sign-in page and the app
+
+## Light and dark mode
+
+Use the sun/moon button to switch themes. It is available on the sign-in page (top right) and in
+the app header next to your account name.
+
+- With no saved choice, the app follows your device's **prefers-color-scheme** setting and updates
+  live if that setting changes.
+- Clicking the toggle saves your choice in `localStorage` (key `todo-app-theme`), so it persists
+  across refreshes, sign-outs, and different accounts on the same browser.
+- Form fields, menus, dialogs, badges, and the sign-in page all use the same theme.
 
 ## Personal and team tasks
 
@@ -144,6 +156,7 @@ src/                       React app
 ├── auth/AuthContext.jsx   Current user + login/signup/logout
 ├── hooks/useTasks.js      Task CRUD against the API
 ├── hooks/useTeams.js      Team CRUD against the API
+├── hooks/useTheme.js      Theme state + localStorage persistence
 └── components/            AuthPage, TodoApp, TaskForm, TaskList, History,
-                           MemberPicker, ShareTaskDialog, TeamsDialog
+                           MemberPicker, ShareTaskDialog, TeamsDialog, ThemeToggle
 ```

@@ -6,10 +6,60 @@
   --accent: #6366f1;
   --accent-strong: #4f46e5;
   --accent-soft: #eef0ff;
+  --accent-wash: rgb(99 102 241 / 15%);
+  --on-accent: #ffffff;
   --border: #e5e7eb;
+  --border-strong: #d1d5db;
+  --surface-hover: #f9fafb;
+  --input-bg: #ffffff;
+  --elevated: #ffffff;
+  --placeholder: #9ca3af;
   --danger: #dc2626;
   --danger-soft: #fef2f2;
+  --danger-border: #fecaca;
+  --danger-hover: #b91c1c;
+  --danger-wash: rgb(220 38 38 / 8%);
+  --team-badge-bg: #e0f2fe;
+  --team-badge-text: #0369a1;
+  --personal-badge-bg: #f3f4f6;
+  --personal-badge-text: #4b5563;
+  --shadow-sm: 0 1px 2px rgb(17 24 39 / 4%);
+  --shadow-md: 0 8px 24px rgb(17 24 39 / 8%);
+  --shadow-lg: 0 20px 50px rgb(17 24 39 / 25%);
+  --backdrop: rgb(17 24 39 / 45%);
   color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #12141c;
+  --surface: #1c202b;
+  --text: #eef0f6;
+  --text-muted: #a2a9bc;
+  --accent: #6366f1;
+  --accent-strong: #a5b4fc;
+  --accent-soft: #2a2d46;
+  --accent-wash: rgb(129 140 248 / 25%);
+  --on-accent: #ffffff;
+  --border: #333a4d;
+  --border-strong: #4b5369;
+  --surface-hover: #262c3b;
+  --input-bg: #232838;
+  --elevated: #232838;
+  --placeholder: #838ca4;
+  --danger: #f87171;
+  --danger-soft: #3a2028;
+  --danger-border: #7f2f38;
+  --danger-hover: #ef4444;
+  --danger-wash: rgb(248 113 113 / 15%);
+  --team-badge-bg: #123244;
+  --team-badge-text: #7dd3fc;
+  --personal-badge-bg: #2e3443;
+  --personal-badge-text: #cbd2e0;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 25%);
+  --shadow-md: 0 8px 24px rgb(0 0 0 / 35%);
+  --shadow-lg: 0 20px 50px rgb(0 0 0 / 50%);
+  --backdrop: rgb(0 0 0 / 65%);
+  color-scheme: dark;
 }
 
 * {
@@ -22,4 +72,5 @@ body {
   background: var(--bg);
   color: var(--text);
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
