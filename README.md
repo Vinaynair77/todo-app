@@ -8,7 +8,7 @@ team tasks with due dates and completion history.
 
 - Add tasks with a due date; the owner is the signed-in account
 - Complete tasks to move them into the history (with completion timestamps)
-- Overdue highlighting, restore, delete, clear history
+- Overdue highlighting, delete, clear history
 - Sign up / sign in with an email address or username, or with Google
 - **Personal tasks** stay private to each account
 - **Team tasks** can be shared with a named team or with individual accounts
@@ -64,7 +64,7 @@ Rules for both kinds of sharing:
 
 - Members are added by searching existing accounts (max 8 suggestions); the identifier must
   belong to a registered account. Unknown identifiers are rejected with a message listing them.
-- Every member can complete, restore, and delete a shared task.
+- Every member can complete and delete a shared task.
 - History shows who completed a shared task when it was not the creator.
 - **Clear history** only deletes completed tasks you created; it never deletes another
   member's shared task.
@@ -80,7 +80,7 @@ Rules for both kinds of sharing:
 | `PATCH` | `/api/teams/:id` | Rename a team and/or replace its `members` |
 | `DELETE` | `/api/teams/:id` | Delete a team (tasks become directly shared) |
 | `POST` | `/api/tasks` | Create a task (`type`, `teamId`, or `members`) |
-| `PATCH` | `/api/tasks/:id` | Complete/restore (`completed`), set `teamId`, or set `members` |
+| `PATCH` | `/api/tasks/:id` | Complete (`completed: true`), set `teamId`, or set `members` |
 | `DELETE` | `/api/tasks/:id` | Delete a task you can see (creator or member) |
 | `DELETE` | `/api/tasks/history` | Delete your own completed tasks |
 

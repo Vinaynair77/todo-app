@@ -45,9 +45,6 @@ function useTasks() {
   const completeTask = (id) =>
     mutate(`/api/tasks/${id}`, { method: 'PATCH', body: { completed: true } }).catch(() => {})
 
-  const restoreTask = (id) =>
-    mutate(`/api/tasks/${id}`, { method: 'PATCH', body: { completed: false } }).catch(() => {})
-
   const deleteTask = (id) => mutate(`/api/tasks/${id}`, { method: 'DELETE' }).catch(() => {})
 
   const clearHistory = () => mutate('/api/tasks/history', { method: 'DELETE' }).catch(() => {})
@@ -63,7 +60,6 @@ function useTasks() {
     addTask,
     updateTaskSharing,
     completeTask,
-    restoreTask,
     deleteTask,
     clearHistory,
   }

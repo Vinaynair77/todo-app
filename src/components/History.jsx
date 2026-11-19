@@ -1,6 +1,6 @@
 import TaskItem from './TaskItem'
 
-function History({ tasks, onRestore, onDelete, onShare }) {
+function History({ tasks, onDelete, onShare }) {
   if (tasks.length === 0) {
     return (
       <p className="empty">Nothing here yet. Tasks you complete will show up in your history.</p>
@@ -13,7 +13,6 @@ function History({ tasks, onRestore, onDelete, onShare }) {
         <TaskItem
           key={task.id}
           task={task}
-          onRestore={onRestore}
           onDelete={onDelete}
           onShare={onShare}
         />

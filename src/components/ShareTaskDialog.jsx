@@ -56,8 +56,8 @@ function ShareTaskDialog({ task, currentUser, teams = [], onClose, onSave, onMan
         </h2>
         <p className="modal-subtitle">
           {mode === 'team'
-            ? 'Everyone in the team can see, complete, restore, and delete this task.'
-            : 'Everyone listed here can see, complete, restore, and delete this task.'}
+            ? 'Everyone in the team can see, complete, and delete this task.'
+            : 'Everyone listed here can see, complete, and delete this task.'}
         </p>
 
         <div className="field">

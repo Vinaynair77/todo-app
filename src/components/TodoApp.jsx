@@ -20,7 +20,6 @@ function TodoApp({ user }) {
     addTask,
     updateTaskSharing,
     completeTask,
-    restoreTask,
     deleteTask,
     clearHistory,
   } = useTasks()
@@ -164,7 +163,6 @@ function TodoApp({ user }) {
           ) : (
             <History
               tasks={historyTasks}
-              onRestore={restoreTask}
               onDelete={deleteTask}
               onShare={setSharingTask}
             />

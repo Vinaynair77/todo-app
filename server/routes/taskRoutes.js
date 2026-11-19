@@ -255,7 +255,7 @@ router.post('/', (req, res) => {
   res.status(201).json(serializeTask(taskId))
 })
 
-/* PATCH /api/tasks/:id — complete/restore, or change sharing (team or people) */
+/* PATCH /api/tasks/:id — complete a task, or change sharing (team or people) */
 router.patch('/:id', (req, res) => {
   const id = Number(req.params.id)
   if (!Number.isInteger(id) || id < 1) {

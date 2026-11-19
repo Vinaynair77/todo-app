@@ -11,7 +11,7 @@ function sharingLabel(task) {
   return `shared with ${members.length} people`
 }
 
-function TaskItem({ task, onComplete, onRestore, onDelete, onShare }) {
+function TaskItem({ task, onComplete, onDelete, onShare }) {
   const isTeam = task.type === 'team'
   const memberList = task.members ?? []
 
@@ -52,9 +52,6 @@ function TaskItem({ task, onComplete, onRestore, onDelete, onShare }) {
               Share
             </button>
           )}
-          <button type="button" className="btn-ghost" onClick={() => onRestore(task.id)}>
-            Restore
-          </button>
           <button
             type="button"
             className="btn-icon"
