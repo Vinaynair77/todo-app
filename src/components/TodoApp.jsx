@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useAuth } from '../auth/AuthContext'
 import useTasks from '../hooks/useTasks'
 import useTeams from '../hooks/useTeams'
@@ -8,6 +8,8 @@ import History from './History'
 import ShareTaskDialog from './ShareTaskDialog'
 import TeamsDialog from './TeamsDialog'
 import ThemeToggle from './ThemeToggle'
+
+const UNDO_TIMEOUT_MS = 7000
 
 function TodoApp({ user }) {
   const { logout } = useAuth()
@@ -31,6 +33,9 @@ function TodoApp({ user }) {
   const [formType, setFormType] = useState('personal')
   const [sharingTask, setSharingTask] = useState(null)
   const [teamsOpen, setTeamsOpen] = useState(false)
+  const [undoEntries, setUndoEntries] = useState([])
+  const undoTimers = useRef(new Map())
+  const undoKey = useRef(0)
 
   const activeTasks = useMemo(
     () =>
@@ -59,6 +64,42 @@ function TodoApp({ user }) {
   const handleDeleteTeam = async (id) => {
     await deleteTeam(id)
     await refreshTasks()
+  }
+
+  const dismissUndo = useCallback((key) => {
+    const timer = undoTimers.current.get(key)
+    if (timer) {
+      window.clearTimeout(timer)
+      undoTimers.current.delete(key)
+    }
+    setUndoEntries((entries) => entries.filter((entry) => entry.key !== key))
+  }, [])
+
+  // Cancel pending auto-dismiss timers when the app unmounts (e.g. sign out).
+  useEffect(() => {
+    const timers = undoTimers.current
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer))
+      timers.clear()
+    }
+  }, [])
+
+  const handleComplete = async (id) => {
+    const task = tasks.find((item) => item.id === id)
+    const completed = await completeTask(id)
+    if (!completed || !task) return
+
+    undoKey.current += 1
+    const key = undoKey.current
+    setUndoEntries((entries) => [...entries, { key, id, title: task.title }])
+    const timer = window.setTimeout(() => dismissUndo(key), UNDO_TIMEOUT_MS)
+    undoTimers.current.set(key, timer)
+  }
+
+  const handleUndo = async (entry) => {
+    const restored = await restoreTask(entry.id)
+    // Keep the toast visible if restoration failed so the user can retry.
+    if (restored) dismissUndo(entry.key)
   }
 
   return (
@@ -133,7 +174,7 @@ function TodoApp({ user }) {
           ) : (
             <TaskList
               tasks={activeTasks}
-              onComplete={completeTask}
+              onComplete={handleComplete}
               onDelete={deleteTask}
               onShare={setSharingTask}
             />
@@ -196,6 +237,33 @@ function TodoApp({ user }) {
           onDelete={handleDeleteTeam}
         />
       )}
+
+      <div className="undo-stack" role="region" aria-label="Recent completions">
+        {undoEntries.map((entry) => (
+          <div
+            className="undo-toast"
+            key={entry.key}
+            role="status"
+            style={{ '--undo-duration': `${UNDO_TIMEOUT_MS}ms` }}
+          >
+            <span className="undo-message">
+              Completed <strong>{entry.title}</strong>
+            </span>
+            <button type="button" className="undo-action" onClick={() => handleUndo(entry)}>
+              Undo
+            </button>
+            <button
+              type="button"
+              className="undo-close"
+              aria-label={`Dismiss undo for ${entry.title}`}
+              onClick={() => dismissUndo(entry.key)}
+            >
+              ×
+            </button>
+            <span className="undo-progress" aria-hidden="true" />
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
