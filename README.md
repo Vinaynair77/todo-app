@@ -8,7 +8,6 @@ team tasks with due dates and completion history.
 
 - Add tasks with a due date; the owner is the signed-in account
 - Complete tasks to move them into the history (with completion timestamps)
-- Undo an accidental completion from a toast shown right after marking a task complete
 - Overdue highlighting, restore, delete, clear history
 - Sign up / sign in with an email address or username, or with Google
 - **Personal tasks** stay private to each account
@@ -27,19 +26,6 @@ the app header next to your account name.
 - Clicking the toggle saves your choice in `localStorage` (key `todo-app-theme`), so it persists
   across refreshes, sign-outs, and different accounts on the same browser.
 - Form fields, menus, dialogs, badges, and the sign-in page all use the same theme.
-
-## Undoing a completion
-
-When you mark a task complete, a toast appears in the bottom-right with an **Undo** button. It
-stays for 7 seconds (a progress bar shows the remaining time) and works for personal and team
-tasks alike. Clicking **Undo** restores the task to the open list; the completion timestamp and
-"completed by" attribution are cleared, just as with the **Restore** button in History.
-
-- Several completions in a row produce a separate toast for each task, so you can undo any of them.
-- **×** dismisses a toast without changing the task; after the timer expires the task stays in
-  History, where **Restore** remains available.
-- The undo only appears after the server confirms the completion, and it stays visible if a
-  restore fails so you can retry.
 
 ## Personal and team tasks
 

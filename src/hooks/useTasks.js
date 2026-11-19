@@ -42,17 +42,11 @@ function useTasks() {
   const updateTaskSharing = (id, payload) =>
     mutate(`/api/tasks/${id}`, { method: 'PATCH', body: payload })
 
-  // Return whether the request succeeded so callers can offer an undo only
-  // after a task was really moved to history.
   const completeTask = (id) =>
-    mutate(`/api/tasks/${id}`, { method: 'PATCH', body: { completed: true } })
-      .then(() => true)
-      .catch(() => false)
+    mutate(`/api/tasks/${id}`, { method: 'PATCH', body: { completed: true } }).catch(() => {})
 
   const restoreTask = (id) =>
-    mutate(`/api/tasks/${id}`, { method: 'PATCH', body: { completed: false } })
-      .then(() => true)
-      .catch(() => false)
+    mutate(`/api/tasks/${id}`, { method: 'PATCH', body: { completed: false } }).catch(() => {})
 
   const deleteTask = (id) => mutate(`/api/tasks/${id}`, { method: 'DELETE' }).catch(() => {})
 
